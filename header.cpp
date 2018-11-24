@@ -35,14 +35,14 @@ Lineral_system::Lineral_system() {
         for (int j = 0; j < size; j++) {
             cout << "matrix[" << i << "][" << j << "]= ";
             if (!(cin >> matrix[i][j])) {
-                throw 123;
+                throw errorMatrix();
             }
         }
     }
     for (int i = 0; i < size; i++) {
         cout << "vector[" << i << "]= ";
             if (!(cin >> vector[i])) {
-                throw 123;
+                throw errorMatrix();
             }
         }
     }
