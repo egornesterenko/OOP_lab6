@@ -5,10 +5,11 @@ int main() {
         Lineral_system one;
         ~one;
     }
-    catch (int a) {
-        cout << "Error of inputing data";
+    catch (Invalid& o) {
+        o.Message();
+        return 0;
     }
-    catch (errorMatrix& z) {
+    catch (Degeneracy& z) {
         z.Message();
         return 0;
     }
