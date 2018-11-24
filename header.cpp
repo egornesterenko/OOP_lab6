@@ -4,13 +4,25 @@
 #include "header.h"
 using namespace std;
 
-class errorMatrix {
+class errorMatrix { //класс ошибок
 public:
-    errorMatrix() {
-        cout << "Уууупс! " << endl;
+    errorMatrix () {
+        cout << "ууупс..." << endl;
     }
+    virtual void Message() {
+        cout << "Найдена ошибка!" << endl;
+    }
+};
+class Degeneracy : public errorMatrix { //матрица вырожденная
+public:
     void Message() {
-        cout << "Нуль на гол діагоналі " << endl;
+        cout << "Матрица вырожденая - ноль на главной диагонале " << endl;
+    }
+};
+class Invalid : public errorMatrix {
+public:
+    void Message() {
+        cout << "Ошибка введеных данных " << endl;
     }
 };
 
@@ -20,10 +32,10 @@ Lineral_system::Lineral_system() {
     cout << "Кількість рівнянь: ";
     int n;
     if (!(cin >> n)) {
-        throw 123;
+        throw Invalid();
     }
     else if (n<0) {
-        throw 123;
+        throw Invalid();
     }
 
     size = n;
@@ -35,14 +47,14 @@ Lineral_system::Lineral_system() {
         for (int j = 0; j < size; j++) {
             cout << "matrix[" << i << "][" << j << "]= ";
             if (!(cin >> matrix[i][j])) {
-                throw errorMatrix();
+                throw Invalid();
             }
         }
     }
     for (int i = 0; i < size; i++) {
         cout << "vector[" << i << "]= ";
             if (!(cin >> vector[i])) {
-                throw errorMatrix();
+                throw Invalid();
             }
         }
     }
@@ -94,7 +106,7 @@ double* Lineral_system::operator~()
             }
         }
         if (max <= 0.001) {
-            throw errorMatrix();
+            throw Degeneracy();
         }
         for (int j = 0; j < size; j++) {
             double temp = matrix[k][j];
